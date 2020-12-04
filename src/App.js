@@ -34,7 +34,8 @@ function App() {
   return (
     <>
           <Router>
-            
+            <Switch>
+          <Route exact path='/' >
         <Container>
             <h1 className='mt-4'>MovieStore</h1>
             
@@ -50,7 +51,8 @@ function App() {
                    className='mt-4 mb-4'
                  
             />
-            <Route exact path='/film/:imdbID' component={(props) => <DetailPage films={films} />}/>
+  
+          
 
               
             </Row>
@@ -77,8 +79,9 @@ function App() {
         
             </Row>
         </Container>
-    
-   
+    </Route>
+        <Route exact path='/film/:imdbID' component={(props) => <DetailPage films={films} />}/>
+        </Switch>
       </Router>
     </>
   );
