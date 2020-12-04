@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { useEffect, useState } from 'react'
 import axios from 'axios';
+import DetailPage from './components/DetailPage'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 
 function App() {
 
@@ -15,19 +18,28 @@ function App() {
 
    const onTextChange = async (e) => {
      setSearchText(e.target.value)
-     const res = await axios.get(url)
-   
-     setFilms(res.data.Search)
-     console.log(films)
+  
    }
+   useEffect(() => {
+   loadData()
+   }, [searchText])
+   const loadData = async () => {
+    const res = await axios.get(url)
    
+    setFilms(res.data.Search)
+    console.log(films)
+   }
 
+   const history = createMemoryHistory()
   return (
     <>
+          <Router>
+            
         <Container>
             <h1 className='mt-4'>MovieStore</h1>
+            
             <Row>
-          
+
             <input 
                    style={{width: '90%', margin: '0 auto'}}
                    type='text'
@@ -38,7 +50,8 @@ function App() {
                    className='mt-4 mb-4'
                  
             />
-           
+            <Route exact path='/film/:imdbID' component={(props) => <DetailPage films={films} />}/>
+
               
             </Row>
             <Row style={{color: "#000"}}>
@@ -53,7 +66,7 @@ function App() {
                             <Card.Text>
                             {item["Year"]}
                             </Card.Text>
-                            <Button variant="primary">Details</Button>
+                            <Link to={`/film/${item.imdbID}`}><Button variant="primary">Details</Button></Link>
                           </Card.Body>
                         </Card>
                   </Col>
@@ -63,7 +76,9 @@ function App() {
         
             </Row>
         </Container>
-      
+    
+   
+      </Router>
     </>
   );
 }
