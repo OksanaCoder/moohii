@@ -57,11 +57,12 @@ function App() {
             <Row style={{color: "#000"}}>
               { films?.map(item => {
                 return (
-                  <Col lg={3} md={3} sm={12} key={item.imdbID} >
+                  <Col lg={3} md={4} sm={12} key={item.imdbID} >
                         
-                          <Card style={{height: 'calc(100% - 10px)' }}>
-                          <Card.Img variant="top" src={item["Poster"]} style={{ objectFit: 'cover' }}/>
-                          <Card.Body>
+                          {/* <Card style={{height: 'calc(100% - 10px)' }}>*/}
+                           <Card style={{display: 'flex', flexDirection: 'column', height: 'calc(100% - 10px)'}}> 
+                          <Card.Img variant="top" src={item["Poster"]} style={{ objectFit: 'cover', flexGrow: 3 , height: '380px'}}/>
+                          <Card.Body style={{ flexGrow: 1}}>
                             <Card.Title>{item["Title"]}</Card.Title>
                             <Card.Text>
                             {item["Year"]}
